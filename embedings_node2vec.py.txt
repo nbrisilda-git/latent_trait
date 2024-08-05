@@ -1,0 +1,18 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[2]:
+
+
+#pip install node2vec
+import networkx as nx
+from node2vec import Node2Vec
+import matplotlib.pyplot as plt
+G=nx.Graph()
+EMBEDDING_FILENAME="D:/datap.txt" #saved externaly data=embeddings 
+G=nx.read_edgelist("D:/data.txt",create_using=nx.Graph(),nodetype=int)# netwrok as a list of its edges
+node2vec=Node2Vec(G, dimensions=3, walk_length=80, num_walks=20, workers=1, p=1, q=1) # dimesions=3 
+            #embb
+model=node2vec.fit(window=10, min_count=1, batch_words=4)
+model.wv.save_word2vec_format(EMBEDDING_FILENAME)
+

@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[ ]:
+
+
+#pip install Python-EasyGraph
+import easygraph as eg
+G=eg.Graph()
+G.add_edges_from_file(file='C:/sdne.txt',weighted=False)
+model=eg.SDNE(G,hidden_size=[2,1])
+embeddings=model.get_embeddings()
+
+
+# In[3]:
+
+
+import numpy
+a=numpy.asarray(embeddings)
+
+
+# In[ ]:
+
+
+mat_dat=[[0,0] for _ in range(40)]
+mat_dat=[[a,embeddings[a][0]] for a in embeddings.keys()]
+mat_dat
+
+
+# In[ ]:
+
+
+import numpy as np
+np.savetxt("C:/mat_dat.csv", 
+           mat_dat,
+           delimiter =", ", 
+           fmt ='% s') #save embeddings externaly
+
